@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-light: #e0e7ff;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --bg-gradient-1: #667eea;
+    --bg-gradient-2: #764ba2;
+    --surface: #ffffff;
+    --surface-hover: #f9fafb;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border: #e5e7eb;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(30px, -30px) rotate(180deg); }
+}
+
+.container {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 540px;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--bg-gradient-2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.title-icon {
+    display: inline-block;
+    animation: rotate 8s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.stats-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.stat-number.active {
+    color: var(--primary);
+}
+
+.stat-number.completed {
+    color: var(--success);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--border);
+}
+
+.input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.todo-input {
+    flex: 1;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-family: inherit;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.todo-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.todo-input::placeholder {
+    color: var(--text-muted);
+}
+
+.add-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+}
+
+.add-btn:active {
+    transform: translateY(0);
+}
+
+.filter-section {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.filter-btn:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.clear-btn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: var(--danger);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    font-family: inherit;
+}
+
+.clear-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.todo-list {
+    list-style: none;
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 0 -8px;
+    padding: 0 8px;
+}
+
+.todo-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+    animation: itemAppear 0.3s ease;
+}
+
+@keyframes itemAppear {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.todo-item:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-sm);
+    transform: translateX(2px);
+}
+
+.todo-item.completed {
+    background: var(--surface-hover);
+    opacity: 0.7;
+}
+
+.todo-checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.todo-checkbox:hover {
+    border-color: var(--primary);
+}
+
+.todo-checkbox.checked {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+    border-color: var(--success);
+}
+
+.todo-checkbox.checked::after {
+    content: '';
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 15px;
+    color: var(--text-primary);
+    word-break: break-word;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.todo-text-edit {
+    flex: 1;
+    font-size: 15px;
+    font-family: inherit;
+    padding: 6px 10px;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-sm);
+    outline: none;
+    color: var(--text-primary);
+    background: var(--surface);
+}
+
+.delete-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0;
+    flex-shrink: 0;
+}
+
+.todo-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    display: none;
+}
+
+.empty-state.show {
+    display: block;
+    animation: itemAppear 0.4s ease;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.empty-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.empty-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.footer p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.todo-item.removing {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+        height: 0;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 24px;
+        border-radius: var(--radius-md);
+    }
+
+    .title {
+        font-size: 26px;
+    }
+
+    .todo-input {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .add-btn {
+        width: 46px;
+        height: 46px;
+    }
+
+    .stats-bar {
+        padding: 12px;
+    }
+
+    .stat-number {
+        font-size: 20px;
+    }
+
+    .filter-section {
+        gap: 6px;
+    }
+
+    .filter-btn, .clear-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .delete-btn {
+        opacity: 1;
+    }
+}
